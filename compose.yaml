@@ -1,0 +1,28 @@
+version: '3'
+services:
+  catalogue_db:
+    image: postgres:14
+    ports:
+      - '5000:5432'
+    environment:
+      POSTGRES_USER: catalogue
+      POSTGRES_PASSWORD: catalogue
+      POSTGRES_DB: catalogue
+  manager-db:
+    image: postgres:14
+    ports:
+      - '5100:5432'
+    environment:
+      POSTGRES_USER: manager
+      POSTGRES_PASSWORD: manager
+      POSTGRES_DB: manager
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.7
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    volumes:
+      - './config/keycloak/import:/opt/keycloak/data/import'
+    ports:
+      - '8082:8080'
+    command: start-dev --import-realm

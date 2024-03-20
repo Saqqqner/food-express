@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5000/catalogue
+    username: catalogue
+    password: catalogue
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+  flyway:
+    schemas:
+      - public
+      - catalogue
+    baseline-on-migrate: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/food-express
+server:
+  port: 8081
+logging:
+  level:
+    org.flywaydb : trace
+    sql: info
